@@ -1,20 +1,22 @@
-const express = require('express')
-const app = express()
-const tasks = require('./routes/tasks')
+require('dotenv').config();
+const express = require('express');
+const connectDB = require('./db/connect'); // Import DB connection
+const tasks = require('./routes/tasks');
 
-//middleware
-app.use(express.json())
+const app = express();
 
-//routes
+// Connect to MongoDB
+connectDB(); // 🔴 This line must be called!
 
+// Middleware
+app.use(express.json());
+
+// Routes
 app.get('/hello', (req, res) => {
-    res.send('Task manger App')
-})
+    res.send('Task Manager App');
+});
 
+app.use('/api/v1/tasks', tasks);
 
-app.use('/api/v1/tasks', tasks)
-
-const port = 3000
-
-app.listen(port, console.log(`server is listening on port ${port}`)
-)
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`🚀 Server is listening on port ${port}`));
