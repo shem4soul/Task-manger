@@ -1,8 +1,8 @@
-require('dotenv').config();
+
 const express = require('express');
 const connectDB = require('./db/connect'); // Import DB connection
 const tasks = require('./routes/tasks');
-
+dotenv = require('dotenv').config();
 const app = express();
 
 // Connect to MongoDB
